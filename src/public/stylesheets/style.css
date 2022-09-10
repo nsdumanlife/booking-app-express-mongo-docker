@@ -4,5 +4,13 @@ body {
 }
 
 a {
-  color: #00B7FF;
+  text-decoration: none;
+  color: #222222;
+}
+
+.bungalow{
+  border: 3px solid;
+  border-radius: 8px;
+  margin-bottom: 8px;
+  padding: 8px;
 }

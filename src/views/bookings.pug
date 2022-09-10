@@ -1,0 +1,15 @@
+extends layout
+
+block content
+  h2= title
+  p These are the bookings you've
+  if user.bookings.length == 0
+    h4 You have no bookings to view at this time.
+  else
+    each booking in user.bookings
+        h3 #{booking.bungalow.name} - #{booking.bungalow.location}
+        p #{booking.checkInDate.getMonth()+1}/#{booking.checkInDate.getDay()}/#{booking.checkInDate.getFullYear()} - #{booking.checkOutDate.getMonth()+1}/#{booking.checkOutDate.getDay()}/#{booking.checkOutDate.getFullYear()}
+        p #{booking.bookingDays.length} nights stand
+        p Total amount #{booking.totalPrice} TRY
+
+        //- TODO: Add isReviewed section

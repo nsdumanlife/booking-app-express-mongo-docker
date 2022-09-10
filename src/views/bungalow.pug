@@ -1,0 +1,33 @@
+extends layout
+
+block content
+    h1= title
+    if bungalow.rating
+        p #{bungalow.rating} star#{bungalow.rating > 1 ? 's' : ''} #{bungalow.reviews.length} review#{bungalow.reviews.length > 1 ? 's' : ''}
+    p #{bungalow.location}
+    each image in bungalow.images
+        img(src=`${image.src}`, alt= `${image.alt}`)
+    h2 Overview
+    p #{bungalow.capacity} guests
+    h4 Services
+    each service in bungalow.services
+        ul
+            li #{service}
+    .book-card
+        form(action=`/bungalows/${bungalow.id}`, method='post')
+            h4 #{bungalow.price} TRY / night
+            label(for='checkInDate') Check-in date
+            input#checkInDate(type='date' name='checkInDate' value='2022-09-10' )
+            label(for='checkOutDate') Check-out date
+            input#checkOutDate(type='date' name='checkOutDate' value='2022-09-13' )
+            input(type="submit", value="Book Now")
+    .reviews
+        h3 Reviews of Bungalow #{bungalow.name}
+        each review in bungalow.reviews
+            ul
+                li #{review.text}
+                p Rating: #{review.rate} - #{review.author.firstName}
+        form(action=`/bungalows/${bungalow.id}/reviews`, method='post')
+            input#text(type="text", name="text" placeholder='Enter your review here')
+            input#star(type="number", name="rate" min=1)
+            input(type="submit", value="Add review")

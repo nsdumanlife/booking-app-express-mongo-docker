@@ -1,0 +1,66 @@
+const express = require('express')
+const Bungalow = require('../models/bungalow')
+const getLoggedInUser = require('../models/index')
+
+const router = express.Router()
+
+/* GET bungalows listing. */
+router.get('/', async (req, res, next) => {
+  try {
+    const bungalows = await Bungalow.find({})
+
+    const user = await getLoggedInUser()
+
+    // if (req.query.name) {
+    // 	return res.send(bungalows.filter(bungalow => bungalow.name.toLowerCase() === req.query.name.toLowerCase()))
+    // }
+
+    // res.send(bungalows)
+    return res.render('bungalows', { title: `Rent a Bungalow for Your Next Escape`, bungalows, user })
+  } catch (e) {
+    return next(e)
+  }
+})
+/* GET bungalow detail page. */
+router.get('/:bungalowId', async (req, res, next) => {
+  try {
+    const bungalow = await Bungalow.findById(req.params.bungalowId)
+
+    // if (bungalow) res.send(bungalow)
+    if (bungalow) res.render('bungalow', { title: `Bungalow ${bungalow.name}`, bungalow })
+    else res.sendStatus(404)
+  } catch (e) {
+    next(e)
+  }
+})
+/* POST/create new booking. */
+router.post('/:bungalowId', async (req, res) => {
+  const bungalow = await Bungalow.findById(req.params.bungalowId)
+  const user = await getLoggedInUser()
+
+  if (!bungalow)
+    return res.render('error', {
+      error: { status: 404 },
+      message: `No bungalow found`,
+    })
+
+  await user.book(bungalow, new Date(req.body.checkInDate), new Date(req.body.checkOutDate))
+
+  return res.redirect('/bookings')
+})
+/* POST/create new review. */
+router.post('/:bungalowId/reviews', async (req, res) => {
+  const bungalow = await Bungalow.findById(req.params.bungalowId)
+  const user = await getLoggedInUser()
+
+  if (!bungalow)
+    return res.render('error', {
+      error: { status: 404 },
+      message: `No bungalow found`,
+    })
+
+  user.review(bungalow, req.body.text, req.body.rate)
+  return res.redirect(`/bungalows/${bungalow.id}`)
+})
+
+module.exports = router

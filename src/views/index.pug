@@ -3,3 +3,6 @@ extends layout
 block content
   h1= title
   p Welcome to #{title}
+  form(action='/bungalows', method='post')
+    input#text(type='input' class='search-input' name='text' placeholder='Where to?')
+    input(type="submit", value="Search")
