@@ -1,6 +1,8 @@
 extends layout
 
 block content
+  if loggedIn
+    a(href="/create-bungalow") Become host
   h1= title
   p Welcome to #{title}
   form(action='/bungalows', method='post')

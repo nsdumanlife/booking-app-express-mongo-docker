@@ -1,0 +1,31 @@
+extends layout
+
+block content
+  h1 Add your bungalow and become host
+  form(action="/bungalows", method='post')
+    div
+      label(for="name") Name of your bungalow
+    div
+      input#name(type='text', name='name', placeholder='Enter the name of the bungalow')
+    div
+      label(for="location") Location of your bungalow
+    div
+      input#location(type='text', name='location', placeholder='Enter the location of the bungalow')
+    div
+      label(for="capacity") Capacity of your bungalow
+    div
+      input#capacity(type='number', name='capacity', placeholder='Enter the capacity of the bungalow', min=2)
+    div
+      label(for="price") Price per night
+    div
+      input#price(type='number', name='price', placeholder='Enter the price per night', min=0)
+      //- TODO: images & services
+    div
+      label(for="images") Images of the bungalow
+    div
+      input#images(type='text', name='images', placeholder='Upload the images of the bungalow')
+    div
+      label(for="services") Services of the bungalow
+    div
+      input#services(type='text', name='services', placeholder='Select the services of the bungalow')
+    input(type="submit", value="Create bungalow")

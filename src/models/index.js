@@ -66,7 +66,7 @@ async function main() {
   await numan.book(lion, checkInDate, checkOutDate)
   await numan.book(dogancay, checkInDate1, checkOutDate1)
   await numan.book(tepe, checkInDate2, checkOutDate2)
-  // numan.cancelBooking(lion)
+  // await numan.cancelBooking('631a3c3677b43133a0d1db71')
   await faruk.book(oxygen, checkInDate2, checkOutDate2)
   await faruk.review(oxygen, 'Amazing view!', 5)
 

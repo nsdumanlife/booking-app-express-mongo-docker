@@ -59,8 +59,16 @@ router.post('/:bungalowId/reviews', async (req, res) => {
       message: `No bungalow found`,
     })
 
-  user.review(bungalow, req.body.text, req.body.rate)
+  await user.review(bungalow, req.body.text, req.body.rate)
   return res.redirect(`/bungalows/${bungalow.id}`)
+})
+/* POST/create new bungalow */
+router.post('/', async (req, res) => {
+  const user = await getLoggedInUser()
+
+  const bungalow = await user.createBungalow(req.body.name, req.body.location, req.body.capacity, req.body.price)
+
+  return res.redirect(`/bungalows`)
 })
 
 module.exports = router

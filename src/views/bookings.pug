@@ -11,5 +11,7 @@ block content
         p #{booking.checkInDate.getMonth()+1}/#{booking.checkInDate.getDay()}/#{booking.checkInDate.getFullYear()} - #{booking.checkOutDate.getMonth()+1}/#{booking.checkOutDate.getDay()}/#{booking.checkOutDate.getFullYear()}
         p #{booking.bookingDays.length} nights stand
         p Total amount #{booking.totalPrice} TRY
+        form(action=`/bookings/${bookingId}`, method='delete')
+          input(type="submit", value="Cancel booking")
 
         //- TODO: Add isReviewed section
