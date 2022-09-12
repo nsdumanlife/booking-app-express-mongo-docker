@@ -5,7 +5,6 @@ const getDays = require('../helper/get-booking-days')
 const bungalowSchema = new mongoose.Schema({
   name: {
     type: String,
-    unique: true,
     required: true,
   },
   location: {
