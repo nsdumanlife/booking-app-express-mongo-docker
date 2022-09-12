@@ -10,28 +10,28 @@ async function main() {
 
   // Bungalows
   const tepe = await Bungalow.create({
-    name: 'Tepe',
+    name: 'tepe',
     location: 'Sapanca, Sakarya',
     capacity: 8,
     price: 950,
     owner: faruk,
   })
   const lion = await Bungalow.create({
-    name: 'Lion',
+    name: 'lion',
     location: 'Kumbag, Tekirdag',
     capacity: 4,
     price: 1250,
     owner: faruk,
   })
   const dogancay = await Bungalow.create({
-    name: 'Dogancay',
+    name: 'dogancay',
     location: 'Geyve, Sakarya, Turkey',
     capacity: 5,
     price: 1150,
     owner: faruk,
   })
   const oxygen = await Bungalow.create({
-    name: 'Oxygen',
+    name: 'oxygen',
     location: 'Geyve, Sakarya',
     capacity: 8,
     price: 950,
