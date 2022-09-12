@@ -6,7 +6,7 @@ services:
       context: .
       dockerfile: Dockerfile
     environment:
-      - MONGODB_CONNECTION_STRING=mongodb://mongo/mongodb
+      - MONGODB_CONNECTION_STRING=mongodb+srv://duman:yVj.sSq7KeXfvn@cluster0.dht8s4t.mongodb.net/booking-app?retryWrites=true&w=majority
     ports:
       - 3000:3000
       - 35729:35729
