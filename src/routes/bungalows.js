@@ -11,9 +11,17 @@ router.get('/', async (req, res, next) => {
 
     const user = await getLoggedInUser()
 
-    // if (req.query.name) {
-    // 	return res.send(bungalows.filter(bungalow => bungalow.name.toLowerCase() === req.query.name.toLowerCase()))
-    // }
+    if (req.query.name) {
+      const bungalow = await Bungalow.findOne({
+        name: `${req.query.name.toLowerCase()}`,
+      })
+      // return res.send(
+      //   await Bungalow.findOne({
+      //     name: `${req.query.name.toLowerCase()}`,
+      //   })
+      // )
+      return res.redirect(`/bungalows/${bungalow.id}`)
+    }
 
     // res.send(bungalows)
     return res.render('bungalows', { title: `Rent a Bungalow for Your Next Escape`, bungalows, user })
@@ -68,7 +76,7 @@ router.post('/', async (req, res) => {
 
   const bungalow = await user.createBungalow(req.body.name, req.body.location, req.body.capacity, req.body.price)
 
-  return res.redirect(`/bungalows`)
+  return res.redirect(`/bungalows/${bungalow.id}`)
 })
 
 module.exports = router
