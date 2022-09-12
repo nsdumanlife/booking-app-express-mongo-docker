@@ -29,5 +29,5 @@ block content
                 p Rating: #{review.rate} - #{review.author.firstName}
         form(action=`/bungalows/${bungalow.id}/reviews`, method='post')
             input#text(type="text", name="text" placeholder='Enter your review here')
-            input#star(type="number", name="rate" min=1)
+            input#star(type="number", name="rate", min=1, max=5)
             input(type="submit", value="Add review")
