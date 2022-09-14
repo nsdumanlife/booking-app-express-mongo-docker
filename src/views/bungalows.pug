@@ -8,7 +8,7 @@ block content
       form(action=`/bungalows/${bungalow.id}`, method='post')
 
         a(href=`/bungalows/${bungalow.id}`)
-          h3 Bungalow #{bungalow.name}
+          h3 Bungalow #{bungalow.name[0].toUpperCase() + bungalow.name.substring(1)}
           h4 #{bungalow.location}
           p #{bungalow.price} TRY
           if bungalow.rating

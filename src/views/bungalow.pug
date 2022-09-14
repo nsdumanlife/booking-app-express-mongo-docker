@@ -17,9 +17,9 @@ block content
         form(action=`/bungalows/${bungalow.id}`, method='post')
             h4 #{bungalow.price} TRY / night
             label(for='checkInDate') Check-in date
-            input#checkInDate(type='date' name='checkInDate' value='2022-09-10' )
+            input#checkInDate(type='date' name='checkInDate' value='2022-09-15' )
             label(for='checkOutDate') Check-out date
-            input#checkOutDate(type='date' name='checkOutDate' value='2022-09-13' )
+            input#checkOutDate(type='date' name='checkOutDate' value='2022-09-17' )
             input(type="submit", value="Book Now")
     .reviews
         h3 Reviews of Bungalow #{bungalow.name}

@@ -7,13 +7,18 @@ const router = express.Router()
 /* GET bungalows listing. */
 router.get('/', async (req, res, next) => {
   try {
+    // Get all bungalows from db
     const bungalows = await Bungalow.find({})
-
+    // Get user from db - you can remove when you have login part on project
     const user = await getLoggedInUser()
 
-    // if (req.query.name) {
-    // 	return res.send(bungalows.filter(bungalow => bungalow.name.toLowerCase() === req.query.name.toLowerCase()))
-    // }
+    if (req.query.name) {
+      const bungalow = await Bungalow.findOne({
+        name: `${req.query.name.toLowerCase()}`,
+      })
+
+      return res.redirect(`/bungalows/${bungalow.id}`)
+    }
 
     // res.send(bungalows)
     return res.render('bungalows', { title: `Rent a Bungalow for Your Next Escape`, bungalows, user })
@@ -27,7 +32,11 @@ router.get('/:bungalowId', async (req, res, next) => {
     const bungalow = await Bungalow.findById(req.params.bungalowId)
 
     // if (bungalow) res.send(bungalow)
-    if (bungalow) res.render('bungalow', { title: `Bungalow ${bungalow.name}`, bungalow })
+    if (bungalow)
+      res.render('bungalow', {
+        title: `Bungalow ${bungalow.name[0].toUpperCase() + bungalow.name.substring(1)}`,
+        bungalow,
+      })
     else res.sendStatus(404)
   } catch (e) {
     next(e)
@@ -66,9 +75,14 @@ router.post('/:bungalowId/reviews', async (req, res) => {
 router.post('/', async (req, res) => {
   const user = await getLoggedInUser()
 
-  const bungalow = await user.createBungalow(req.body.name, req.body.location, req.body.capacity, req.body.price)
+  const bungalow = await user.createBungalow(
+    req.body.name.toLowerCase(),
+    req.body.location.toLowerCase(),
+    req.body.capacity,
+    req.body.price
+  )
 
-  return res.redirect(`/bungalows`)
+  return res.redirect(`/bungalows/${bungalow.id}`)
 })
 
 module.exports = router
