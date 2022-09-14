@@ -45,7 +45,6 @@ router.get('/:bungalowId', async (req, res, next) => {
 /* POST/create new booking. */
 router.post('/:bungalowId', async (req, res) => {
   const bungalow = await Bungalow.findById(req.params.bungalowId)
-  const user = await getLoggedInUser()
 
   if (!bungalow)
     return res.render('error', {
@@ -53,6 +52,7 @@ router.post('/:bungalowId', async (req, res) => {
       message: `No bungalow found`,
     })
 
+  const user = await getLoggedInUser()
   await user.book(bungalow, new Date(req.body.checkInDate), new Date(req.body.checkOutDate))
 
   return res.redirect('/bookings')
